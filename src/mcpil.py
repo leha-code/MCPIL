@@ -5,6 +5,7 @@
 #  Copyright 2020 Alvarito050506 <donfrutosgomez@gmail.com>
 #  Copyright 2020 StealthHydrac/StealthHydra179/a1ma
 #  Copyright 2020 JumpeR6790
+#  Copyright 2021 LEHAtupointow <pezleha@gmail.com>
 #  
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -48,7 +49,7 @@ import webbrowser
 
 window: Tk
 
-descriptions = [
+DESCRIPTIONS = [
     'Classic Minecraft Pi Edition. (Not Recommended)\nNo mods.',
     'Modded Minecraft Pi Edition.\nDefault MCPI-Reborn mods without Touch GUI.',
     'Minecraft Pocket Edition. (Recommended)\nDefault MCPI-Reborn mods.',
@@ -59,7 +60,7 @@ description_text: Label
 
 launch_button: Button
 
-render_distances = [
+RENDER_DISTANCES = [
     'Far',
     'Normal',
     'Short',
@@ -248,7 +249,7 @@ def select_version(version: int):
     global current_selection
     try:
         current_selection = version
-        description_text['text'] = descriptions[current_selection]
+        description_text['text'] = DESCRIPTIONS[current_selection]
     except IndexError:
         pass
     except Exception as err:
@@ -320,7 +321,7 @@ def settings_tab(parent):
     render_distance_label = Label(main_frame, text='Render Distance:')
     render_distance_label.grid(row=0, column=0, padx=6, pady=6, sticky='W')
     current_render_distance = StringVar(main_frame)
-    render_distance = ttk.Combobox(main_frame, textvariable=current_render_distance, values=render_distances, width=24)
+    render_distance = ttk.Combobox(main_frame, textvariable=current_render_distance, values=RENDER_DISTANCES, width=24)
     render_distance.state(['readonly'])
     render_distance.grid(row=0, column=1, padx=6, pady=6, sticky='EW')
 
@@ -442,18 +443,19 @@ def about_tab(parent):
     main_frame.pack(expand=True)
 
     return tab
-
+#the function that runs if the __name__ variable is  __main__. This means it runs only if the program is the main module
 def main():
     if platform.system() != 'Linux':
         showerror('Error', 'Linux Is Required')
         return 1
 
     global window
-
+    
     window = Tk(className='mcpil')
-    window.title('MCPIL')
+    window.title('MCPIL - Minecraft Pi launcher')
     window.geometry('512x400')
     window.resizable(True, True)
+    window.iconbitmap("mcpil.png")
 
     tabs = ttk.Notebook(window)
     tabs.add(play_tab(tabs), text='Play')
@@ -475,6 +477,6 @@ def main():
         quit()
 
     return 0
-
+#run the main loop
 if __name__ == '__main__':
     sys.exit(main())
