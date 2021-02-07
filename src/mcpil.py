@@ -455,7 +455,7 @@ def main():
     window.title('MCPIL - Minecraft Pi launcher')
     window.geometry('512x400')
     window.resizable(True, True)
-    window.iconbitmap("mcpil.png")
+    window.call('wm', 'iconphoto', window._w, PhotoImage(file='mcpil.png'))
 
     tabs = ttk.Notebook(window)
     tabs.add(play_tab(tabs), text='Play')
